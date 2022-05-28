@@ -4,7 +4,7 @@ const app = express();
 const hostname = '127.0.0.1';
 const port = 3061;
 const sqlite3 = require('sqlite3').verbose(); 
-const DBPATH = 'dbUser.db'; 
+const DBPATH = 'curriculo.db'; 
 
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -18,7 +18,7 @@ app.use(express.json());
 /****** CRUD ******************************************************************/
 
 // Retorna todos registros (é o R do CRUD - Read)
-app.get('/users', (req, res) => {
+app.get('/', (req, res) => {
   res.statusCode = 200;
   res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
@@ -28,6 +28,7 @@ var sql = 'SELECT * FROM tbUser ORDER BY title COLLATE NOCASE';
       if (err) {
           throw err;
       }
+      else console.log(sql);
       res.json(rows);
   });
   db.close(); // Fecha o banco
@@ -44,6 +45,7 @@ app.post('/userinsert', urlencodedParser, (req, res) => {
       if (err) {
           throw err;
       }
+      else console.log(sql);
   });
   db.close(); // Fecha o banco
   res.end();
@@ -60,6 +62,7 @@ app.post('/userupdate', urlencodedParser, (req, res) => {
       if (err) {
           throw err;
       }
+      else console.log(sql);
       res.end();
   });
   db.close(); // Fecha o banco
